@@ -118,11 +118,28 @@ function generateComputerHandsign() {
         default:
         computerPlayerBox.innerHTML = `<img class="player-two-hand-signal" src="Assets/Scissors_Hand_Signal.svg" alt="Scissors-Hand-Sign" height=350px  width=300px>`;
     }
+    removePlayerOptions();
+    replacePlayButton();
 }
 
+function removePlayerOptions() {
+    let playerchoices = document.querySelector(".player-choices");
+    playerchoices.innerHTML = ``;
+}
 
+function removePlayButton() {
+    let playButtonContainer = document.querySelector(".play-button-container");
+    playButtonContainer.innerHTML = ``;
+}
+
+function replacePlayButton() {
+    let playButtonContainer = document.querySelector(".play-button-container");
+    playButtonContainer.innerHTML = `<button class="play-button">Play</button>`;
+    document.querySelector(".play-button").addEventListener("click", () => playGame());
+}
 
 function playGame(){
+    removePlayButton();
     addPlayerOptions();
     firstHandSign();
     setPlayerChoice();

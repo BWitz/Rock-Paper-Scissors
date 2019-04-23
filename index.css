@@ -54,7 +54,7 @@ nav {
     padding-bottom: 1.5%;
     padding-right: 2%;
     padding-left: 2%;
-    letter-spacing: .2rem;
+    letter-spacing: .1rem;
     font-size: 20px;
     background-color: white;
 }
@@ -89,3 +89,7 @@ nav {
     background-color: yellow;
 }
 
+.streak {
+    font-size: 40px;
+    color: blanchedalmond;
+}
