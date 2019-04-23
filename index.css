@@ -1,0 +1,91 @@
+* {
+    background-color: lightseagreen;
+}
+
+.webpage-title {
+    text-align: center;
+    padding-top: 1%;
+    color: blanchedalmond;
+    font-size: 45px;
+}
+
+nav {
+    padding: .5%;
+    opacity: 0.75;
+}
+
+.play {
+    margin-right: 25px;
+    margin-left: 20px;
+    margin-bottom: -10px;
+    float: right;
+}
+
+.pause {
+    float: right;
+    margin-right: 3%;
+}
+
+.left-box {
+    width: 30%;
+    min-height: 350px;
+    border: 1px solid white;
+    float: left;
+    box-sizing: border-box;
+    position: inline;
+    margin-left: 10%;
+  }
+  
+  .right-box {
+    width: 30%;
+    min-height: 350px;
+    border: 1px solid black;
+    float: right;
+    position: inline;
+    margin-right: 10%;
+  }
+    
+  .play-button {
+    border-style: double;
+    border-radius: 50px;
+    margin-left: 46%;
+    margin-top: 4%;
+    padding-top: 1.5%;
+    padding-bottom: 1.5%;
+    padding-right: 2%;
+    padding-left: 2%;
+    letter-spacing: .2rem;
+    font-size: 20px;
+    background-color: white;
+}
+
+.player-one-hand-signal {
+    margin-left: 12%;
+}
+
+.player-two-hand-signal {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    margin-left: 12%;
+}
+
+.player-choices {
+    margin-top: 30%;
+    margin-left: 8%;
+}
+
+.option {
+    border-radius: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    font-size: 16px;
+    background-color: white;
+}
+
+.option:active {
+    background-color: yellow;
+}
+
