@@ -91,15 +91,42 @@ function finalPlayerChoice(player_choice) {
             firstPlayerBox.innerHTML = `<img class="player-one-hand-signal" src="Assets/Rock_Hand_Signal.svg" alt="Rock-Hand-Sign" height=350px  width=300px>`;
         break;
         default:
-            // firstPlayerBox.innerHTML = `<img class="player-one-hand-signal" src="Assets/Neutral_Hand_Signal.svg" alt="Neutral-Hand-Sign" height=350px  width=300px>`;
-            console.log(player_choice, "no handsign chosen")
+            firstPlayerBox.innerHTML = `<img class="player-one-hand-signal" src="Assets/Neutral_Hand_Signal.svg" alt="Neutral-Hand-Sign" height=350px  width=300px>`;
         break;
     }
 }
+
+generateRandomNumber = (min, max) => {
+    let randomNumber = Math.random() * (max - min) + min;
+    let randomNumberRoundedUp = Math.floor(randomNumber);
+    return randomNumberRoundedUp;
+}
+
+function generateComputerHandsign() {
+    let randomNumber = this.generateRandomNumber(1, 4);
+    let computerPlayerBox = document.querySelector(".right-box");
+    switch(randomNumber) {
+        case 1:
+        computerPlayerBox.innerHTML = `<img class="player-two-hand-signal" src="Assets/Scissors_Hand_Signal.svg" alt="Scissors-Hand-Sign" height=350px  width=300px>`;
+        break;
+        case 2:
+        computerPlayerBox.innerHTML = `<img class="player-two-hand-signal" src="Assets/Paper_Hand_Signal.svg" alt="Paper-Hand-Sign" height=350px  width=300px>`;
+        break;
+        case 3:
+        computerPlayerBox.innerHTML = `<img class="player-two-hand-signal" src="Assets/Rock_Hand_Signal.svg" alt="Rock-Hand-Sign" height=350px  width=300px>`;
+        break;
+        default:
+        computerPlayerBox.innerHTML = `<img class="player-two-hand-signal" src="Assets/Scissors_Hand_Signal.svg" alt="Scissors-Hand-Sign" height=350px  width=300px>`;
+    }
+}
+
 
 
 function playGame(){
     addPlayerOptions();
     firstHandSign();
     setPlayerChoice();
+    setTimeout(() => {
+        this.generateComputerHandsign();
+    }, 5000);
 }
