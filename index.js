@@ -1,14 +1,16 @@
-document.querySelector(".play").addEventListener("click", () => {
-    let audioObject = document.getElementById("background-music");
-    audioObject.play();
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector(".play").addEventListener("click", () => {
+        let audioObject = document.getElementById("background-music");
+        audioObject.play();
+    })
+    
+    document.querySelector(".pause").addEventListener("click", () => {
+        let audioObject = document.getElementById("background-music");
+        audioObject.pause();
+    })
+    
+    document.querySelector(".play-button").addEventListener("click", () => playGame());
 })
-
-document.querySelector(".pause").addEventListener("click", () => {
-    let audioObject = document.getElementById("background-music");
-    audioObject.pause();
-})
-
-document.querySelector(".play-button").addEventListener("click", () => playGame());
 
 function addPlayerOptions() {
     let playerchoices = document.querySelector(".player-choices");
@@ -24,7 +26,7 @@ function firstHandSign() {
     computerPlayerBox.innerHTML = `<img class="player-two-hand-signal" src="Assets/Rock_Hand_Signal.svg" alt="Rock-Hand-Sign" height=350px  width=300px>`;
     setTimeout(() => {
         secondHandSign();
-    }, 1200);
+    }, 800);
 }
 
 function secondHandSign() {
@@ -34,7 +36,7 @@ function secondHandSign() {
     computerPlayerBox.innerHTML = `<img class="player-two-hand-signal" src="Assets/Paper_Hand_Signal.svg" alt="Paper-Hand-Sign" height=350px  width=300px>`;
     setTimeout(() => {
         thirdHandSign()
-    }, 1200);
+    }, 800);
 }
 
 function thirdHandSign() {
@@ -44,7 +46,7 @@ function thirdHandSign() {
     computerPlayerBox.innerHTML = `<img class="player-two-hand-signal" src="Assets/Scissors_Hand_Signal.svg" alt="Scissors-Hand-Sign" height=350px  width=300px>`;
     setTimeout(() => {
         fourthHandSign();
-    }, 1200);
+    }, 800);
 }
 
 function fourthHandSign() {
@@ -73,33 +75,34 @@ function setPlayerChoice() {
 
     setTimeout(() => {
         finalPlayerChoice(player_choice)
-    }, 5000);
+    }, 3500);
 }
 
 function finalPlayerChoice(player_choice) {
     let firstPlayerBox = document.querySelector(".left-box");
     switch(player_choice) {
         case "scissors":
-            firstPlayerBox.innerHTML = `<img class="player-one-hand-signal" src="Assets/Scissors_Hand_Signal.svg" alt="Scissors-Hand-Sign" height=350px  width=300px>`;
+            firstPlayerBox.innerHTML = `<img class="player-one-hand-signal" src="Assets/Scissors_Hand_Signal.svg" name="scissors" alt="Scissors-Hand-Sign" height=350px  width=300px>`;
         break;
 
         case "paper":
-            firstPlayerBox.innerHTML = `<img class="player-one-hand-signal" src="Assets/Paper_Hand_Signal.svg" alt="Paper-Hand-Sign" height=350px  width=300px>`;
+            firstPlayerBox.innerHTML = `<img class="player-one-hand-signal" src="Assets/Paper_Hand_Signal.svg" name="paper" alt="Paper-Hand-Sign" height=350px  width=300px>`;
         break;
 
         case "rock":
-            firstPlayerBox.innerHTML = `<img class="player-one-hand-signal" src="Assets/Rock_Hand_Signal.svg" alt="Rock-Hand-Sign" height=350px  width=300px>`;
+            firstPlayerBox.innerHTML = `<img class="player-one-hand-signal" src="Assets/Rock_Hand_Signal.svg" name="rock" alt="Rock-Hand-Sign" height=350px  width=300px>`;
         break;
+
         default:
-            firstPlayerBox.innerHTML = `<img class="player-one-hand-signal" src="Assets/Neutral_Hand_Signal.svg" alt="Neutral-Hand-Sign" height=350px  width=300px>`;
+            firstPlayerBox.innerHTML = `<img class="player-one-hand-signal" src="Assets/Neutral_Hand_Signal.svg" name="default-hand" alt="Neutral-Hand-Sign" height=350px  width=300px>`;
         break;
     }
 }
 
 generateRandomNumber = (min, max) => {
     let randomNumber = Math.random() * (max - min) + min;
-    let randomNumberRoundedUp = Math.floor(randomNumber);
-    return randomNumberRoundedUp;
+    let randomNumberRoundedDown = Math.floor(randomNumber);
+    return randomNumberRoundedDown;
 }
 
 function generateComputerHandsign() {
@@ -107,16 +110,16 @@ function generateComputerHandsign() {
     let computerPlayerBox = document.querySelector(".right-box");
     switch(randomNumber) {
         case 1:
-        computerPlayerBox.innerHTML = `<img class="player-two-hand-signal" src="Assets/Scissors_Hand_Signal.svg" alt="Scissors-Hand-Sign" height=350px  width=300px>`;
+        computerPlayerBox.innerHTML = `<img class="player-two-hand-signal" src="Assets/Scissors_Hand_Signal.svg" alt="Scissors-Hand-Sign" name="scissors" height=350px  width=300px>`;
         break;
         case 2:
-        computerPlayerBox.innerHTML = `<img class="player-two-hand-signal" src="Assets/Paper_Hand_Signal.svg" alt="Paper-Hand-Sign" height=350px  width=300px>`;
+        computerPlayerBox.innerHTML = `<img class="player-two-hand-signal" src="Assets/Paper_Hand_Signal.svg" alt="Paper-Hand-Sign" name="paper" height=350px  width=300px>`;
         break;
         case 3:
-        computerPlayerBox.innerHTML = `<img class="player-two-hand-signal" src="Assets/Rock_Hand_Signal.svg" alt="Rock-Hand-Sign" height=350px  width=300px>`;
+        computerPlayerBox.innerHTML = `<img class="player-two-hand-signal" src="Assets/Rock_Hand_Signal.svg" alt="Rock-Hand-Sign" name="rock" height=350px  width=300px>`;
         break;
         default:
-        computerPlayerBox.innerHTML = `<img class="player-two-hand-signal" src="Assets/Scissors_Hand_Signal.svg" alt="Scissors-Hand-Sign" height=350px  width=300px>`;
+        alert("Error! Computer did not play their hand! Try refreshing the site.");
     }
     removePlayerOptions();
     replacePlayButton();
@@ -138,6 +141,45 @@ function replacePlayButton() {
     document.querySelector(".play-button").addEventListener("click", () => playGame());
 }
 
+function evaluateWinner() {
+    const playerChoice = document.querySelector(".player-one-hand-signal");
+    const computerChoice = document.querySelector(".player-two-hand-signal");
+    const outcomeDisplay = document.querySelector(".player-outcome");
+    if (playerChoice.name === computerChoice.name) {
+        outcomeDisplay.innerText = "Outcome: Draw!"
+    } else if ((playerChoice.name === "scissors") && (computerChoice.name === "paper")) {
+        outcomeDisplay.innerText = "Outcome: You won!";
+        incrementWinStreak();
+    } else if ((playerChoice.name === "paper") && (computerChoice.name === "rock")) {
+        outcomeDisplay.innerText = "Outcome: You won!"
+        incrementWinStreak();
+    } else if ((playerChoice.name === "rock") && (computerChoice.name === "scissors")) {
+        outcomeDisplay.innerText = "Outcome: You won!"
+        incrementWinStreak();
+    } else if (playerChoice.name === "default-hand"){
+        alert("Please select Rock, Paper, or Scissors! They're located under the left-hand after you hit play, which will reveal your choice.")
+    } else {
+        outcomeDisplay.innerText = "Outcome: You lost."
+        resetWinStreak();
+    }
+}
+
+function incrementWinStreak() {
+    const winstreak = document.querySelector(".streak");
+    let previousStreakArray = winstreak.innerText.split(' ');
+    let previousWinStreakNumber = parseInt(previousStreakArray[2], 10);
+    let incrementedStreak = previousWinStreakNumber += 1;
+    previousStreakArray.pop();
+    previousStreakArray.push(incrementedStreak);
+    let newStreak = previousStreakArray.join(' ')
+    winstreak.innerText = `${newStreak}`;
+}
+
+function resetWinStreak() {
+    const winstreak = document.querySelector(".streak");
+    winstreak.innerText = `Win Streak: 0`;
+}
+
 function playGame(){
     removePlayButton();
     addPlayerOptions();
@@ -145,5 +187,8 @@ function playGame(){
     setPlayerChoice();
     setTimeout(() => {
         this.generateComputerHandsign();
-    }, 5000);
+    }, 3500);
+    setTimeout(() => {
+        evaluateWinner();
+    }, 4000);
 }
